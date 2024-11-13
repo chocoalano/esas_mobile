@@ -31,31 +31,33 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Empcard(),
-            const SizedBox(height: 20),
-            Obx(
-              () {
-                final data = controller.userSchedule.value;
-                if (data.id != null) {
-                  return const Absencard();
-                } else {
-                  return const Center(
-                    child: Text(
-                      "Tidak ada jadwal absensi.",
-                      style: TextStyle(color: dangerColor),
-                    ),
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-            const Anouncement(),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Empcard(),
+              const SizedBox(height: 20),
+              Obx(
+                () {
+                  final data = controller.userSchedule.value;
+                  if (data.id != null) {
+                    return const Absencard();
+                  } else {
+                    return const Center(
+                      child: Text(
+                        "Tidak ada jadwal absensi.",
+                        style: TextStyle(color: dangerColor),
+                      ),
+                    );
+                  }
+                },
+              ),
+              const SizedBox(height: 20),
+              const Anouncement(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BotNavView(),

@@ -58,28 +58,13 @@ class PhotoController extends GetxController {
   }
 
   Future<Map<String, double>> _getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    // Periksa apakah layanan lokasi aktif
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-    // Periksa izin lokasi
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    // Jika izin diberikan, dapatkan posisi saat ini
+    LocationSettings locationSettings = const LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 1,
+    );
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      locationSettings: locationSettings,
+    );
     curLatitude.value = position.latitude;
     curLongitude.value = position.longitude;
     return {

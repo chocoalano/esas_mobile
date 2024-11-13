@@ -11,7 +11,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 
 import '../controllers/form_controller.dart';
-import 'components/photo_box.dart';
+import '../../../../../../../components/photo_box.dart';
 
 class FormView extends GetView<FormController> {
   const FormView({super.key});

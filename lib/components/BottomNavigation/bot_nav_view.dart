@@ -35,6 +35,8 @@ class BotNavView extends StatelessWidget {
               label: 'Akun',
             ),
           ],
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: bgColor,
           selectedItemColor: primaryColor,
           unselectedItemColor: Colors.black54,
           selectedFontSize: 15,

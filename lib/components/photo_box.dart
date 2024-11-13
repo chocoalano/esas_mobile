@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:esas_mobile/constant.dart';
 import 'package:flutter/material.dart';
 
 class PhotoBox extends StatelessWidget {
@@ -19,7 +18,7 @@ class PhotoBox extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(
-          imageUrl: photoUrl.isNotEmpty ? '$baseUrlImg/$photoUrl' : '',
+          imageUrl: photoUrl.isNotEmpty ? photoUrl : '',
           placeholder: (context, url) => const CircularProgressIndicator(),
           errorWidget: (context, url, error) => const Icon(Icons.error),
           fit: BoxFit.cover,

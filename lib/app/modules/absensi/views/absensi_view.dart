@@ -1,3 +1,4 @@
+import 'package:esas_mobile/components/photo_box.dart';
 import 'package:esas_mobile/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -155,30 +156,54 @@ class AbsensiView extends StatelessWidget {
     Get.bottomSheet(
       Container(
         width: Get.width,
-        height: Get.height / 3.2,
+        height: Get.height / 2,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildDetailHeader(),
-              const Divider(),
-              const SizedBox(height: 10),
-              _buildInfoRow('NIK', item.user?.nik ?? ''),
-              _buildInfoRow('Tanggal', formatDate(item.date)),
-              _buildInfoRow('Jam masuk', formatTimeSting(item.timeIn)),
-              _buildInfoStatusRow('Status Jam masuk', item.statusIn ?? ''),
-              _buildInfoRow('Jam pulang', formatTimeSting(item.timeOut)),
-              _buildInfoStatusRow('Status Jam pulang', item.statusOut ?? ''),
-            ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailHeader(),
+                const Divider(),
+                const SizedBox(height: 10),
+                _buildInfoRow('NIK', item.user?.nik ?? ''),
+                _buildInfoRow('Tanggal', formatDate(item.date)),
+                _buildInfoRow('Jam masuk', formatTimeSting(item.timeIn)),
+                _buildInfoStatusRow('Status Jam masuk', item.statusIn ?? ''),
+                _buildInfoRow('Jam pulang', formatTimeSting(item.timeOut)),
+                _buildInfoStatusRow('Status Jam pulang', item.statusOut ?? ''),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 10,
+                ),
+                _buildPhotoSection(item.photoIn ?? '', item.photoOut ?? '')
+              ],
+            ),
           ),
         ),
       ),
       isScrollControlled: true,
+    );
+  }
+
+  Widget _buildPhotoSection(String photoIn, String photoOut) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        PhotoBox(
+          photoUrl: photoIn,
+        ),
+        PhotoBox(
+          photoUrl: photoOut,
+        ),
+      ],
     );
   }
 

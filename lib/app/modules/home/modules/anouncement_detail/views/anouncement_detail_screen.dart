@@ -11,23 +11,32 @@ class AnouncementDetailScreen extends GetView<AnouncementDetailController> {
   const AnouncementDetailScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: GlobatAppbar(
-          title: 'Detail Pengumuman',
-          act: () => Get.offAllNamed('/beranda'),
-        ),
-        body: Obx(
-          () => controller.isLoading.isTrue
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: primaryColor,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) {
+          return;
+        }
+        Get.offAllNamed('/beranda');
+      },
+      child: Scaffold(
+          appBar: GlobatAppbar(
+            title: 'Detail Pengumuman',
+            act: () => Get.offAllNamed('/beranda'),
+          ),
+          body: Obx(
+            () => controller.isLoading.isTrue
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      color: primaryColor,
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: HtmlWidget(
+                        controller.announcementDetail.value.value.toString()),
                   ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: HtmlWidget(
-                      controller.announcementDetail.value.value.toString()),
-                ),
-        ));
+          )),
+    );
   }
 }
